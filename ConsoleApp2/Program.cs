@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClassLibraryKalkulator;
+using System;
 
 namespace Calculator.ConsoleApp
 {
@@ -6,41 +7,29 @@ namespace Calculator.ConsoleApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Witaj w aplikacji KALKULATOR!");
+            Console.WriteLine("Wybierz kalkulator:");
 
-            Console.WriteLine("Podaj proszę 1 liczbę:");
+            Console.WriteLine("KALKULATOR PROSTY = 1");
 
-            var number1 = int.Parse(Console.ReadLine());
+            Console.WriteLine("KALKULATOR ZAWANSOWANY = 2");
 
-            Console.WriteLine("Jaką operację chcesz wykonać? Możliwe operacje to: '+', '-', '*', '/'.");
+            var Kl = int.Parse(Console.ReadLine());
 
-            var operation = Console.ReadLine();
-
-            Console.WriteLine("Podaj proszę 2 liczbę:");
-
-            var number2 = int.Parse(Console.ReadLine());
-
-            var result = 0;
-
-            switch (operation)
+            if (Kl == 1)
             {
-                case "+":
-                    result = number1 + number2;
-                    break;
-                case "-":
-                    result = number1 - number2;
-                    break;
-                case "*":
-                    result = number1 * number2;
-                    break;
-                case "/":
-                    result = number1 / number2;
-                    break;
-                default:
-                    throw new Exception("Wybrałeś złą operację!");
+                Console.WriteLine("INSTRUKCJA: \n + dodawanie \n - odejmowanie \n * mnożenie \n / dzielenie \n");
+                ProstyKalkulator.START();
+            }
+            else if (Kl == 2)
+            {
+                Console.WriteLine("INSTRUKCJA: \n + dodawanie \n - odejmowanie \n * mnożenie \n / dzielenie \n ^ potęgowanie \n 'W' wczytanie poprzedniego wyniku \n = wypisanie wyniku \n");
+                ZawansowanyKalkulator.START();
+            }
+            else
+            {
+                Console.WriteLine("Wybrałeś złą operację!");
             }
 
-            Console.WriteLine($"Wynik Twojego działania to: {result}.");
         }
     }
 }
