@@ -13,63 +13,70 @@ namespace ClassLibraryKalkulator
             Console.WriteLine("Witaj w aplikacji KALKULATORZE ZAWANSOWANYM!");
 
             Console.WriteLine("Podaj proszę liczbę:");
-
-            var number1 = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("Jaką operację chcesz wykonać? Możliwe operacje to: ' + ', ' - ', ' * ', ' / ', ' ^ '.");
-
-            while (true)
+            try
             {
+                var number1 = int.Parse(Console.ReadLine());
 
-                var operation = Console.ReadLine();
+                Console.WriteLine("Jaką operację chcesz wykonać? Możliwe operacje to: ' + ', ' - ', ' * ', ' / ', ' ^ '.");
 
-                if(operation == "="){
-
-                    break;
-
-                }
-
-                if(operation == "W")
+                while (true)
                 {
-                    number1 = int.Parse(File.ReadAllText("Zapis.txt"));
+
+                    var operation = Console.ReadLine();
+
+                    if (operation == "=")
+                    {
+
+                        break;
+
+                    }
+
+                    if (operation == "W")
+                    {
+                        number1 = int.Parse(File.ReadAllText("Zapis.txt"));
+
+                        Console.WriteLine("wykonać następną operacje (' + ', ' - ', ' * ', ' / ', ' ^ ', ' W '.) czy zakończyć (' = ') ?");
+
+                        continue;
+                    }
+
+                    Console.WriteLine("Podaj proszę kolejną liczbę:");
+
+                    var number2 = int.Parse(Console.ReadLine());
+
+                    switch (operation)
+                    {
+                        case "+":
+                            number1 = number1 + number2;
+                            break;
+                        case "-":
+                            number1 = number1 - number2;
+                            break;
+                        case "*":
+                            number1 = number1 * number2;
+                            break;
+                        case "/":
+                            number1 = number1 / number2;
+                            break;
+                        case "^":
+                            number1 = (int)Math.Pow(number1, number2);
+                            break;
+                        default:
+                            throw new Exception("Wybrałeś złą operację!");
+                    }
 
                     Console.WriteLine("wykonać następną operacje (' + ', ' - ', ' * ', ' / ', ' ^ ', ' W '.) czy zakończyć (' = ') ?");
-
-                    continue;
                 }
 
-                Console.WriteLine("Podaj proszę kolejną liczbę:");
+                Console.WriteLine(number1);
 
-                var number2 = int.Parse(Console.ReadLine());
-
-                switch (operation)
-                {
-                    case "+":
-                        number1 = number1 + number2;
-                        break;
-                    case "-":
-                        number1 = number1 - number2;
-                        break;
-                    case "*":
-                        number1 = number1 * number2;
-                        break;
-                    case "/":
-                        number1 = number1 / number2;
-                        break;
-                    case "^":
-                        number1 = (int)Math.Pow(number1, number2);
-                        break;
-                    default:
-                        throw new Exception("Wybrałeś złą operację!");
-                }
-
-                Console.WriteLine("wykonać następną operacje (' + ', ' - ', ' * ', ' / ', ' ^ ', ' W '.) czy zakończyć (' = ') ?");
+                File.WriteAllText("Zapis.txt", number1.ToString());
+                Console.WriteLine("Wynik zapisany do pliku \n");
             }
-
-            Console.WriteLine(number1);
-
-            File.WriteAllText("Zapis.txt", number1.ToString());
-            Console.WriteLine("Wynik zapisany do pliku \n");
+            catch (Exception ex)
+            {
+                Console.WriteLine("Wybrałeś złą operację!");
+            }
         }
     }
 }
